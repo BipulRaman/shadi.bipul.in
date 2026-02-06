@@ -23,7 +23,6 @@
             --deep-red: #9b1c1c;
             --rich-maroon: #7a0f12;
             --gold: #d9aa45;
-            --paper: #fdf7ed;
             --text: #5b1f1f;
         }
         * { box-sizing: border-box; }
@@ -54,20 +53,6 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.12);
             border: 12px solid rgba(255,255,255,0.78);
             outline: 2px solid var(--gold);
-        }
-        .card:before,
-        .card:after {
-            content: "";
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            background-image: none;
-        }
-        .card:after { opacity: 0; }
-        .top-motif,
-        .bottom-motif {
-            width: 180px;
-            margin: 0 auto;
         }
         .top-band,
         .bottom-band {
@@ -267,12 +252,6 @@
         .music-toggle:disabled {
             opacity: 0.8;
             cursor: default;
-        }
-        .footer-note {
-            text-align: center;
-            font-size: 16px;
-            color: var(--text);
-            padding: 6px 20px 24px;
         }
         @media (max-width: 640px) {
             body { padding: 18px 12px; }
