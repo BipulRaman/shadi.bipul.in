@@ -279,6 +279,73 @@
             .body { padding: 6px 18px 24px; }
             .block { padding: 14px 16px; }
         }
+        /* Welcome Modal */
+        .welcome-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.55);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            padding: 20px;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes scaleIn { from { transform: scale(0.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .welcome-modal {
+            background: linear-gradient(135deg, #fdf7ed 0%, #f7e3b8 100%);
+            border: 3px solid var(--gold);
+            border-radius: 18px;
+            padding: 36px 32px 28px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+            animation: scaleIn 0.4s ease;
+            position: relative;
+        }
+        .welcome-modal .welcome-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+        .welcome-modal .welcome-text {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--deep-red);
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        .welcome-modal .welcome-name {
+            font-size: 28px;
+            color: var(--rich-maroon);
+            display: block;
+            margin: 6px 0;
+        }
+        .welcome-modal .welcome-sub {
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: 17px;
+            color: var(--text);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+        .welcome-modal .welcome-close {
+            margin-top: 20px;
+            padding: 8px 28px;
+            border: 2px solid var(--gold);
+            border-radius: 8px;
+            background: #c75050;
+            color: #fff;
+            font-family: 'Noto Serif Devanagari', serif;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .welcome-modal .welcome-close:hover {
+            background: #b04040;
+        }
     </style>
 </head>
 <body>
@@ -342,6 +409,36 @@
         <button class="music-toggle" id="music-toggle" type="button" aria-label="Play music">🔈</button>
         <audio id="bg-music" preload="auto" src="bg-music.mp3" autoplay></audio>
     </div>
+    <!-- Welcome Modal -->
+    <div class="welcome-overlay" id="welcome-modal" style="display:none;">
+        <div class="welcome-modal">
+            <div class="welcome-icon">🙏</div>
+            <div class="welcome-text">
+                प्रिय <span class="welcome-name" id="welcome-name"></span>
+                आपका हार्दिक स्वागत है!
+            </div>
+            <div class="welcome-sub">इस शुभ अवसर पर आपकी उपस्थिति हमारे लिए अत्यंत सम्मान की बात होगी।</div>
+            <button class="welcome-close" id="welcome-close">धन्यवाद 🙏</button>
+        </div>
+    </div>
+    <script>
+        // Welcome modal logic
+        (() => {
+            const params = new URLSearchParams(window.location.search);
+            const name = params.get('n');
+            if (name) {
+                const modal = document.getElementById('welcome-modal');
+                document.getElementById('welcome-name').textContent = decodeURIComponent(name);
+                modal.style.display = 'flex';
+                document.getElementById('welcome-close').addEventListener('click', () => {
+                    modal.style.display = 'none';
+                });
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) modal.style.display = 'none';
+                });
+            }
+        })();
+    </script>
     <script>
         (() => {
             const audio = document.getElementById('bg-music');
